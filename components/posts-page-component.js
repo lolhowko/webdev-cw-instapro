@@ -14,6 +14,7 @@ export function renderPostsPageComponent({ appEl, post }) {
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
 
+
 getPosts().then((responseData) => {
   const appPosts = responseData.posts.map((post) => {
 
@@ -36,8 +37,12 @@ getPosts().then((responseData) => {
 
   posts = appPosts;
 
-  // тут должна быть рендер-функция с отрисовкой HTML-разметки
-  // 
+  // тут должна быть рендер-функция с отрисовкой HTML-разметки типо:
+  // renderComments({
+//     comments,
+//     fetchAndRenderComments,
+//     name: window.userName,
+// });
 })
 
 
