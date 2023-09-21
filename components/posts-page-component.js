@@ -21,6 +21,8 @@ getPosts().then((responseData) => {
 
     return {
       name: post.user.name,
+      imageUrl,
+      login : post.user.login,
 
       // date: createDate,
 
@@ -28,8 +30,7 @@ getPosts().then((responseData) => {
 
       // like: post.likes,
 
-      // isLiked: false,
-
+      isLiked: false,
   };
   })
 
