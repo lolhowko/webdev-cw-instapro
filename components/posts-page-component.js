@@ -14,7 +14,6 @@ export function renderPostsPageComponent({ appEl }) {
    * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
    */
 
-
   // получение разметки в html из api
   const postsHtml = posts
     .map((post, index) => {
@@ -31,9 +30,15 @@ export function renderPostsPageComponent({ appEl }) {
         </div>
 
         <div class="post-likes">
-          <button data-post-id="${post.id}" data-dislike="${post.isLiked}" class="like-button">
+          <button data-post-id="${post.id}" data-dislike="${
+            post.isLiked
+          }" class="like-button">
             <img src="./assets/images/like-active.svg">
-            <img src="${post.isLiked ? `./assets/images/like-active.svg` : `./assets/images/like-not-active.svg` }">
+            <img src="${
+              post.isLiked
+                ? `./assets/images/like-active.svg`
+                : `./assets/images/like-not-active.svg`
+            }">
 
           </button>
           <p class="post-likes-text">
@@ -81,34 +86,40 @@ export function renderPostsPageComponent({ appEl }) {
   }
 }
 
+// getPosts().then((responseData) => {
+//   const appPosts = responseData.posts.map((post) => {
 
-  // getPosts().then((responseData) => {
-  //   const appPosts = responseData.posts.map((post) => {
+//     // const createDate =
 
-  //     // const createDate =
+//     return {
+//       name: post.user.name,
+//       imageUrl,
+//       login : post.user.login,
 
-  //     return {
-  //       name: post.user.name,
-  //       imageUrl,
-  //       login : post.user.login,
+//       // date: createDate,
 
-  //       // date: createDate,
+//       text: post.text,
 
-  //       text: post.text,
+//       // like: post.likes,
 
-  //       // like: post.likes,
+//       isLiked: false,
+//   };
+// })
+// })
 
-  //       isLiked: false,
-  //   };
-  // })
-  // })
+// posts = appPosts;
 
-  // posts = appPosts;
+// тут должна быть рендер-функция с отрисовкой HTML-разметки типо:
+// renderComments({
+//     comments,
+//     fetchAndRenderComments,
+//     name: window.userName,
+// });
+// })
 
-  // тут должна быть рендер-функция с отрисовкой HTML-разметки типо:
-  // renderComments({
-  //     comments,
-  //     fetchAndRenderComments,
-  //     name: window.userName,
-  // });
-  // })
+for (let likeButton of document.querySelector(".like-button")) {
+  likeButton.addEventListener("click", () => {
+    console.log(likeButton.dataset.id);
+    console.log(likeButton.dataset.dislike);
+  });
+}

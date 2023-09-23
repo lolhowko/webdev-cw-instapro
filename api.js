@@ -48,6 +48,7 @@ export function postPosts({ token, name }) {
         login: login,
         imageUrl: imageUrl,
       },
+      isLiked: false,
     }),
   });
 }
@@ -106,10 +107,9 @@ export function likePost({ id, token }) {
     headers: {
       Authorization: token,
     },
-  })
-  .then((response) => {
+  }).then((response) => {
     return response.json;
-  })
+  });
 }
 
 // Function to not active Like!
@@ -120,8 +120,7 @@ export function dislikePost({ id, token }) {
     headers: {
       Authorization: token,
     },
-  })
-  .then((response) => {
+  }).then((response) => {
     return response.json;
-  })
+  });
 }
