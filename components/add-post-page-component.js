@@ -1,7 +1,10 @@
 import { postPosts } from "../api.js";
 import { renderHeaderComponent } from "./header-component.js";
+import { renderUploadImageComponent } from "./upload-image-component.js";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
+  let imageUrl = "";
+
   const render = () => {
     // TODO: Реализовать страницу добавления поста
     const appHtml = `
@@ -41,6 +44,13 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       element: document.querySelector(".header-container"),
     });
 
+    renderUploadImageComponent({
+      element: appEl.querySelector(".file-upload-input"),
+      onImageUrlChange(newImageUrl) {
+        imageUrl = newImageUrl;
+      },
+    });
+
     // Объявление переменных для инпутов картинки, нейм, логин, описание
 
     const inputDescriptionElement = document.querySelector(".textarea");
@@ -51,7 +61,7 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         description: "Описание картинки",
         imageUrl: "https://image.png",
 
-//fetch чтобы добавлять при нажатии
+        //fetch чтобы добавлять при нажатии
 
         // const fetchPostPosts = () => {
         //   postPosts({
@@ -59,14 +69,12 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         //     description = inputDescriptionElement.value,
         //   })
         //   .then(() => {
-        //     return 
+        //     return
         //   })
         // }
-
       });
     });
   };
 
   render();
 }
-
