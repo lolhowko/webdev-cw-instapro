@@ -51,15 +51,15 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       },
     });
 
-    // Объявление переменных для инпутов картинки, нейм, логин, описание
+    // Объявление переменных для инпутов картинки, описание
 
     const inputDescriptionElement = document.querySelector(".textarea");
-    const inputImageElement = document.querySelector(".file-upload-input");
+    // const inputImageElement = document.querySelector(".file-upload-input");
 
     document.getElementById("add-button").addEventListener("click", () => {
       onAddPostClick({
-        description: "Описание картинки",
-        imageUrl: "https://image.png",
+        description: inputDescriptionElement.value,
+        imageUrl,
 
         //fetch чтобы добавлять при нажатии
 
@@ -72,6 +72,7 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         //     return
         //   })
         // }
+
       });
     });
   };
