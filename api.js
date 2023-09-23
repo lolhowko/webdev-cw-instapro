@@ -97,3 +97,31 @@ export function uploadImage({ file }) {
     return response.json();
   });
 }
+
+// Function to active Like!
+
+export function likePost({ id, token }) {
+  return fetch(baseHost + `/api/v1/${personalKey}/instapro/${id}/like`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  })
+  .then((response) => {
+    return response.json;
+  })
+}
+
+// Function to not active Like!
+
+export function dislikePost({ id, token }) {
+  return fetch(baseHost + `/api/v1/${personalKey}/instapro/${id}/dislike`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  })
+  .then((response) => {
+    return response.json;
+  })
+}
