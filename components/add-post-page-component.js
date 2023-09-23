@@ -1,3 +1,4 @@
+import { postPosts } from "../api.js";
 import { renderHeaderComponent } from "./header-component.js";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
@@ -40,13 +41,32 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       element: document.querySelector(".header-container"),
     });
 
+    // Объявление переменных для инпутов картинки, нейм, логин, описание
+
+    const inputDescriptionElement = document.querySelector(".textarea");
+    const inputImageElement = document.querySelector(".file-upload-input");
+
     document.getElementById("add-button").addEventListener("click", () => {
       onAddPostClick({
         description: "Описание картинки",
         imageUrl: "https://image.png",
+
+//fetch чтобы добавлять при нажатии
+
+        // const fetchPostPosts = () => {
+        //   postPosts({
+        //     imageUrl = inputImageElement.value,
+        //     description = inputDescriptionElement.value,
+        //   })
+        //   .then(() => {
+        //     return 
+        //   })
+        // }
+
       });
     });
   };
 
   render();
 }
+
