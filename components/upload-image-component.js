@@ -33,6 +33,7 @@ export function renderUploadImageComponent({ element, onImageUrlChange }) {
 
     fileInputElement?.addEventListener("change", () => {
       const file = fileInputElement.files[0];
+      console.log(`file test`, file);
       if (file) {
         const lableEl = document.querySelector(".file-upload-label");
         lableEl.setAttribute("disabled", true);

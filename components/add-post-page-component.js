@@ -18,12 +18,7 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         <div class="form-inputs">
 
           <div class="upload-image-container">
-            <div class="upload=image">
-              <label class="file-upload-label secondary-button">
-                <input type="file" class="file-upload-input" style="display:none">
-                Выберите фото
-              </label>
-            </div>
+
           </div>
 
           <label>
@@ -44,8 +39,10 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       element: document.querySelector(".header-container"),
     });
 
+    
+
     renderUploadImageComponent({
-      element: appEl.querySelector(".file-upload-input"),
+      element: appEl.querySelector(".upload-image-container"),
       onImageUrlChange(newImageUrl) {
         imageUrl = newImageUrl;
       },

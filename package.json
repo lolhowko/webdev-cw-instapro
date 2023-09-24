@@ -1,0 +1,22 @@
+{
+    "devDependencies": {
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "prettier": "^3.0.3",
+        "stylelint": "^15.10.3",
+        "stylelint-config-prettier": "^8.0.2",
+        "stylelint-config-standard": "^22.0.0",
+        "stylelint-prettier": "^4.0.2"
+    },
+    "name": "webdev-cw-instapro",
+    "description": "MVP аналога популярной соц. сети для обмена фотографиями",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "format": "prettier --write .",
+        "lint:css": "stylelint ./**/*.css"
+    },
+    "author": "",
+    "license": "ISC"
+}

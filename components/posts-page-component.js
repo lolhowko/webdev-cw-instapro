@@ -33,7 +33,6 @@ export function renderPostsPageComponent({ appEl }) {
           <button data-post-id="${post.id}" data-dislike="${
             post.isLiked
           }" class="like-button">
-            <img src="./assets/images/like-active.svg">
             <img src="${
               post.isLiked
                 ? `./assets/images/like-active.svg`
@@ -117,9 +116,9 @@ export function renderPostsPageComponent({ appEl }) {
 // });
 // })
 
-for (let likeButton of document.querySelector(".like-button")) {
-  likeButton.addEventListener("click", () => {
-    console.log(likeButton.dataset.id);
-    console.log(likeButton.dataset.dislike);
-  });
-}
+// for (let likeButton of document.querySelector(".like-button")) {
+//   likeButton.addEventListener("click", () => {
+//     console.log(likeButton.dataset.id);
+//     console.log(likeButton.dataset.dislike);
+//   });
+// }
