@@ -1,23 +1,23 @@
-import { USER_POSTS_PAGE } from "../routes.js";
-import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
-import { getPosts } from "../api.js";
+import { USER_POSTS_PAGE } from '../routes.js'
+import { renderHeaderComponent } from './header-component.js'
+import { posts, goToPage, getToken } from '../index.js'
+import { dislikePost, getPosts } from '../api.js'
 
 export function renderPostsPageComponent({ appEl }) {
-  // TODO: реализовать рендер постов из api
-  console.log("Актуальный список постов:", posts);
+    // TODO: реализовать рендер постов из api
+    console.log('Актуальный список постов:', posts)
 
-  const appElement = document.getElementById("app");
+    const appElement = document.getElementById('app')
 
-  /**
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-   * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-   */
+    /**
+     * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
+     * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
+     */
 
-  // получение разметки в html из api
-  const postsHtml = posts
-    .map((post, index) => {
-      return `              
+    // получение разметки в html из api
+    const postsHtml = posts
+        .map((post, index) => {
+            return `              
       <li class="post">
 
         <div class="post-header" data-user-id="642d00329b190443860c2f31">
@@ -31,12 +31,12 @@ export function renderPostsPageComponent({ appEl }) {
 
         <div class="post-likes">
           <button data-post-id="${post.id}" data-dislike="${
-            post.isLiked
+              post.isLiked
           }" class="like-button">
             <img src="${
-              post.isLiked
-                ? `./assets/images/like-active.svg`
-                : `./assets/images/like-not-active.svg`
+                post.isLiked
+                    ? `./assets/images/like-active.svg`
+                    : `./assets/images/like-not-active.svg`
             }">
 
           </button>
@@ -54,11 +54,11 @@ export function renderPostsPageComponent({ appEl }) {
           СДЕЛАТЬ ДАТУ через библиотеку
           ${post.createdAt}
         </p>
-      </li>`;
-    })
-    .join(" ");
+      </li>`
+        })
+        .join(' ')
 
-  const appHtml = `
+    const appHtml = `
     <div class="page-container">
 
       <div class="header-container"></div>
@@ -68,57 +68,38 @@ export function renderPostsPageComponent({ appEl }) {
       </ul>
 
     </div>
-    `;
+    `
 
-  appElement.innerHTML = appHtml;
+    appEl.innerHTML = appHtml
 
-  renderHeaderComponent({
-    element: document.querySelector(".header-container"),
-  });
+    renderHeaderComponent({
+        element: document.querySelector('.header-container'),
+    })
 
-  for (let userEl of document.querySelectorAll(".post-header")) {
-    userEl.addEventListener("click", () => {
-      goToPage(USER_POSTS_PAGE, {
-        userId: userEl.dataset.userId,
-      });
-    });
-  }
+    for (let userEl of document.querySelectorAll('.post-header')) {
+        userEl.addEventListener('click', () => {
+            goToPage(USER_POSTS_PAGE, {
+                userId: userEl.dataset.userId,
+            })
+        })
+    }
+
+    for (let likeButton of document.querySelectorAll('.like-button')) {
+
+        likeButton.addEventListener('click', () => {
+            // console.log(likeButton.dataset.id)
+            // console.log(likeButton.dataset.dislike)
+
+            if (likeButton.dataset.dislike) {
+                dislikePost({
+                    id: likeButton.dataset.id,
+                    token: getToken(),
+                }).then(() => {
+                    getPosts({ token: getToken() }).then((newPosts) => {
+                        renderPostsPageComponent({ appEl, posts: newPosts })
+                    })
+                })
+            }
+        })
+    }
 }
-
-// getPosts().then((responseData) => {
-//   const appPosts = responseData.posts.map((post) => {
-
-//     // const createDate =
-
-//     return {
-//       name: post.user.name,
-//       imageUrl,
-//       login : post.user.login,
-
-//       // date: createDate,
-
-//       text: post.text,
-
-//       // like: post.likes,
-
-//       isLiked: false,
-//   };
-// })
-// })
-
-// posts = appPosts;
-
-// тут должна быть рендер-функция с отрисовкой HTML-разметки типо:
-// renderComments({
-//     comments,
-//     fetchAndRenderComments,
-//     name: window.userName,
-// });
-// })
-
-// for (let likeButton of document.querySelector(".like-button")) {
-//   likeButton.addEventListener("click", () => {
-//     console.log(likeButton.dataset.id);
-//     console.log(likeButton.dataset.dislike);
-//   });
-// }

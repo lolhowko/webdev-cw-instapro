@@ -20,7 +20,7 @@ export let user = getUserFromLocalStorage()
 export let page = null
 export let posts = []
 
-const getToken = () => {
+export const getToken = () => {
     const token = user ? `Bearer ${user.token}` : undefined
     return token
 }
@@ -73,7 +73,7 @@ export const goToPage = (newPage, data) => {
             console.log('Открываю страницу пользователя: ', data.userId)
             return getUserPost(data.userId).then((data) => {
                 page = USER_POSTS_PAGE
-                posts = data;
+                posts = data
                 renderApp()
             })
         }
@@ -132,6 +132,15 @@ const renderApp = () => {
 
     if (page === USER_POSTS_PAGE) {
         // TODO: реализовать страницу фотографию пользвателя
+        // return getUserPost(data.id)
+        // .then((data) => {
+
+        //   console.log(data);
+        //     page = USER_POSTS_PAGE
+        //     posts = data
+        //     renderApp()
+        //     appEl.innerHTML = posts
+        // })
         appEl.innerHTML = 'Здесь будет страница фотографий пользователя'
         return
     }

@@ -90,35 +90,35 @@ export function uploadImage({ file }) {
 // Function to active Like!
 
 export function likePost({ id, token }) {
-    return fetch(baseHost + `/api/v1/${personalKey}/instapro/${id}/like`, {
+    return fetch(postsHost + `/${id}/like`, {
         method: 'POST',
         headers: {
             Authorization: token,
         },
     }).then((response) => {
-        return response.json
+        return response.json;
     })
 }
 
 // Function to not active Like!
 
 export function dislikePost({ id, token }) {
-    return fetch(baseHost + `/api/v1/${personalKey}/instapro/${id}/dislike`, {
+    return fetch(postsHost + `/${id}/dislike`, {
         method: 'POST',
         headers: {
             Authorization: token,
         },
     }).then((response) => {
-        return response.json
+        return response.json;
     })
 }
 
 //
-export function getUserPost(userId) {
-    return fetch(postsHost + `/user-posts/${userId}`, {
+export function getUserPost(id) {
+    return fetch(postsHost + `/user-posts/${id}`, {
         method: 'GET',
     })
-        .then(response =>  response.json())
+        .then((response) => response.json())
         .then((data) => {
             return data.posts
         })
