@@ -5,7 +5,6 @@ import { dislikePost, getPosts, likePost } from '../api.js'
 
 export function renderPostsPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
-    console.log('Актуальный список постов:', posts)
 
     const appElement = document.getElementById('app')
 
@@ -16,7 +15,7 @@ export function renderPostsPageComponent({ appEl }) {
 
     // получение разметки в html из api
     const postsHtml = posts
-        .map((post, index) => {
+        .map((post) => {
             return `              
       <li class="post">
 
@@ -87,11 +86,11 @@ export function renderPostsPageComponent({ appEl }) {
     for (let likeButton of document.querySelectorAll('.like-button')) {
         likeButton.addEventListener('click', () => {
             console.log(likeButton.dataset.postId)
-            console.log(likeButton.dataset.likes)
+            console.log(likeButton.dataset.dislike)
 
             if (likeButton.dataset.dislike) {
                 dislikePost({
-                    id: likeButton.dataset.id,
+                    id: likeButton.dataset.postId,
                     token: getToken(),
                 }).then(() => {
                     getPosts({ token: getToken() }).then((newPosts) => {
@@ -99,7 +98,7 @@ export function renderPostsPageComponent({ appEl }) {
                     })
                 })
             } else {
-                likePost({ id: likeButton.dataset.id, token: getToken() })
+                likePost({ id: likeButton.dataset.postId, token: getToken() })
                 .then(() => {
                         getPosts({ token: getToken() }).then((newPosts) => {
                             renderPostsPageComponent({ appEl, posts: newPosts })
