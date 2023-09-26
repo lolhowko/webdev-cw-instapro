@@ -115,7 +115,7 @@ export function dislikePost({ id, token }) {
 
 //
 export function getUserPost(id) {
-    return fetch(postsHost + `/user-posts/${id}`, {
+    return fetch(baseHost + `/api/v1/${personalKey}/instapro/user-posts/${id}`, {
         method: 'GET',
     })
         .then((response) => response.json())

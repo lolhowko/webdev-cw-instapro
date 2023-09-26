@@ -1,13 +1,13 @@
-import { postPosts } from "../api.js";
-import { renderHeaderComponent } from "./header-component.js";
-import { renderUploadImageComponent } from "./upload-image-component.js";
+import { postPosts } from '../api.js'
+import { renderHeaderComponent } from './header-component.js'
+import { renderUploadImageComponent } from './upload-image-component.js'
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
-  let imageUrl = "";
+    let imageUrl = ''
 
-  const render = () => {
-    // TODO: Реализовать страницу добавления поста
-    const appHtml = `
+    const render = () => {
+        // TODO: Реализовать страницу добавления поста
+        const appHtml = `
     <div class="header-container"></div>
 
     <div class="page-container">
@@ -31,48 +31,30 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
           </div>
       </div>
     </div>
-  `;
+  `
 
-    appEl.innerHTML = appHtml;
+        appEl.innerHTML = appHtml
 
-    renderHeaderComponent({
-      element: document.querySelector(".header-container"),
-    });
+        renderHeaderComponent({
+            element: document.querySelector('.header-container'),
+        })
 
-    
+        renderUploadImageComponent({
+            element: appEl.querySelector('.upload-image-container'),
+            onImageUrlChange(newImageUrl) {
+                imageUrl = newImageUrl
+            },
+        })
 
-    renderUploadImageComponent({
-      element: appEl.querySelector(".upload-image-container"),
-      onImageUrlChange(newImageUrl) {
-        imageUrl = newImageUrl;
-      },
-    });
+        const inputDescriptionElement = document.querySelector('.textarea')
 
-    // Объявление переменных для инпутов картинки, описание
+        document.getElementById('add-button').addEventListener('click', () => {
+            onAddPostClick({
+                description: inputDescriptionElement.value,
+                imageUrl,
+            })
+        })
+    }
 
-    const inputDescriptionElement = document.querySelector(".textarea");
-    // const inputImageElement = document.querySelector(".file-upload-input");
-
-    document.getElementById("add-button").addEventListener("click", () => {
-      onAddPostClick({
-        description: inputDescriptionElement.value,
-        imageUrl,
-
-        //fetch чтобы добавлять при нажатии
-
-        // const fetchPostPosts = () => {
-        //   postPosts({
-        //     imageUrl = inputImageElement.value,
-        //     description = inputDescriptionElement.value,
-        //   })
-        //   .then(() => {
-        //     return
-        //   })
-        // }
-
-      });
-    });
-  };
-
-  render();
+    render()
 }

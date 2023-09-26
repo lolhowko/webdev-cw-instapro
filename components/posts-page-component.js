@@ -1,7 +1,7 @@
 import { USER_POSTS_PAGE } from '../routes.js'
 import { renderHeaderComponent } from './header-component.js'
 import { posts, goToPage, getToken } from '../index.js'
-import { dislikePost, getPosts } from '../api.js'
+import { dislikePost, getPosts, likePost } from '../api.js'
 
 export function renderPostsPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
@@ -85,10 +85,9 @@ export function renderPostsPageComponent({ appEl }) {
     }
 
     for (let likeButton of document.querySelectorAll('.like-button')) {
-
         likeButton.addEventListener('click', () => {
-            // console.log(likeButton.dataset.id)
-            // console.log(likeButton.dataset.dislike)
+            console.log(likeButton.dataset.postId)
+            console.log(likeButton.dataset.likes)
 
             if (likeButton.dataset.dislike) {
                 dislikePost({
@@ -99,6 +98,14 @@ export function renderPostsPageComponent({ appEl }) {
                         renderPostsPageComponent({ appEl, posts: newPosts })
                     })
                 })
+            } else {
+                likePost({ id: likeButton.dataset.id, token: getToken() })
+                .then(() => {
+                        getPosts({ token: getToken() }).then((newPosts) => {
+                            renderPostsPageComponent({ appEl, posts: newPosts })
+                        })
+                    }
+                )
             }
         })
     }
