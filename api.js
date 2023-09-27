@@ -4,7 +4,6 @@ const personalKey = 'prod'
 // const baseHost = 'https://webdev-hw-api.vercel.app'
 const baseHost = 'https://wedev-api.sky.pro'
 
-
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`
 
 export function getPosts({ token }) {
@@ -92,35 +91,45 @@ export function uploadImage({ file }) {
 
 // Function to active Like!
 
-export function likePost({ id, token }) {
+export function likePost({ id, token, name }) {
     return fetch(postsHost + `/${id}/like`, {
         method: 'POST',
         headers: {
             Authorization: token,
         },
+        body: JSON.stringify({
+            id,
+            name,
+        }),
     }).then((response) => {
-        return response.json;
+        return response.json
     })
 }
 
 // Function to not active Like!
 
-export function dislikePost({ id, token }) {
+export function dislikePost({ id, token, name }) {
     return fetch(postsHost + `/${id}/dislike`, {
         method: 'POST',
         headers: {
             Authorization: token,
         },
+        body: JSON.stringify({
+            id,
+            name,
+        }),
     }).then((response) => {
-        return response.json;
+        return response.json
     })
 }
 
-
 export function getUserPost(id) {
-    return fetch(baseHost + `/api/v1/${personalKey}/instapro/user-posts/${id}`, {
-        method: 'GET',
-    })
+    return fetch(
+        baseHost + `/api/v1/${personalKey}/instapro/user-posts/${id}`,
+        {
+            method: 'GET',
+        }
+    )
         .then((response) => response.json())
         .then((data) => {
             return data.posts
