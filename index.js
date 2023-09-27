@@ -138,9 +138,11 @@ const renderApp = () => {
         // TODO: реализовать страницу фотографию пользвателя
 
         appEl.innerHTML = getUserPost(data.userId)
-        // 'Здесь будет страница фотографий пользователя'
+        'Здесь будет страница фотографий пользователя'
         return
     }
 }
+
+
 
 goToPage(POSTS_PAGE)

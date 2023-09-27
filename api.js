@@ -1,7 +1,10 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = 'prod'
-const baseHost = 'https://webdev-hw-api.vercel.app'
+// const baseHost = 'https://webdev-hw-api.vercel.app'
+const baseHost = 'https://wedev-api.sky.pro'
+
+
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`
 
 export function getPosts({ token }) {
@@ -113,7 +116,7 @@ export function dislikePost({ id, token }) {
     })
 }
 
-//
+
 export function getUserPost(id) {
     return fetch(baseHost + `/api/v1/${personalKey}/instapro/user-posts/${id}`, {
         method: 'GET',
