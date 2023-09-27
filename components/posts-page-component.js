@@ -16,11 +16,11 @@ export function renderPostsPageComponent({ appEl }) {
 
     // получение разметки в html из api
 
-    const render = () => {
-      
-      const postsHtml = posts.map((post) => {
-          return `<li class="post">
-                    <div class="post-header" data-user-id="642d00329b190443860c2f31">
+    const render = () => {  
+        const postsHtml = posts
+            .map((post) => {
+                return `<li class="post">
+                    <div class="post-header" data-user-id="${post.id}">
                         <img src="${
                             post.user.imageUrl
                         }" class="post-header__user-image">
@@ -31,7 +31,7 @@ export function renderPostsPageComponent({ appEl }) {
                       <img class="post-image" src="${post.imageUrl}">
                     </div>
 
-                    <div class="post-likes">
+                    <div class="post-likes" >
                       <button data-post-id="${post.id}" data-dislike="${
                           post.isLiked ? 'true' : ''
                       }" class="like-button">
@@ -43,8 +43,12 @@ export function renderPostsPageComponent({ appEl }) {
 
                       </button>
                       <p class="post-likes-text">
-                        Нравится: <strong>${post.likes.name}</strong>
-                         <strong>${post.likes.length ? `и еще ${post.likes.length}` : " "}</strong>
+                        Нравится: <strong>${post.likes}</strong>
+                         <strong>${
+                             post.likes.length
+                                 ? `и еще ${post.likes.length}`
+                                 : ' '
+                         }</strong>
                       </p>
                     </div>
 
@@ -61,7 +65,7 @@ export function renderPostsPageComponent({ appEl }) {
             })
             .join(' ')
 
-      const appHtml = `
+        const appHtml = `
                 <div class="page-container">
 
                   <div class="header-container"></div>
@@ -90,6 +94,7 @@ export function renderPostsPageComponent({ appEl }) {
             likeButton.addEventListener('click', () => {
                 console.log(likeButton.dataset.postId)
                 console.log(likeButton.dataset.dislike)
+                
 
                 if (likeButton.dataset.dislike) {
                     dislikePost({
@@ -97,6 +102,7 @@ export function renderPostsPageComponent({ appEl }) {
                         token: getToken(),
                     }).then(() => {
                         getPosts({ token: getToken() }).then((newPosts) => {
+                            console.log(newPosts)
                             renderPostsPageComponent({ appEl, posts: newPosts })
                         })
                     })
@@ -106,6 +112,7 @@ export function renderPostsPageComponent({ appEl }) {
                         token: getToken(),
                     }).then(() => {
                         getPosts({ token: getToken() }).then((newPosts) => {
+                            console.log(newPosts)
                             renderPostsPageComponent({ appEl, posts: newPosts })
                         })
                     })
