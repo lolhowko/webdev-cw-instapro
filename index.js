@@ -72,16 +72,21 @@ export const goToPage = (newPage, data) => {
             page = LOADING_PAGE
             renderApp()
 
-            console.log('Открываю страницу пользователя: ', data.userId)
-            console.log(data.userId)
+            // console.log('Открываю страницу пользователя: ', data.userId)
+            // console.log(data.userId)
 
-            return getUserPost(data.userId).then((data) => {
-                console.log(data)
+            return getUserPost(data.userId)
+                .then((newPosts) => {
+                    console.log(newPosts)
 
-                page = USER_POSTS_PAGE
-                posts = data.userId
-                renderApp()
-            })
+                    page = USER_POSTS_PAGE
+                    posts = newPosts.userId
+                    renderApp()
+                })
+                .catch((error) => {
+                    console.error(error.message)
+                    goToPage(USER_POSTS_PAGE)
+                })
         }
 
         page = newPage
@@ -143,7 +148,7 @@ const renderApp = () => {
             appEl,
         })
 
-        // appEl.innerHTML = 
+        // appEl.innerHTML =
         // 'Здесь будет страница фотографий пользователя'
         // return
     }

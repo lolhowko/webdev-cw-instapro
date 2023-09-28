@@ -1,4 +1,4 @@
-import { getToken, posts } from '../index.js'
+import { posts, getToken } from '../index.js'
 import { dislikePost, getPosts, likePost } from '../api.js'
 import { renderHeaderComponent } from './header-component.js'
 import { renderPostsPageComponent } from './posts-page-component.js'
@@ -16,7 +16,8 @@ export function renderUserPageComponent({ appEl }) {
     // получение разметки в html из api
 
     console.log(posts);
-    const postsHtml = 
+
+    const userPostsHtml = 
     posts
         .map((post) => {
             return `<li class="post">
@@ -59,26 +60,25 @@ export function renderUserPageComponent({ appEl }) {
         })
         .join(' ')
 
-    console.log(posts);
 
 
     const appHtml = `
-                <div class="page-container">
+             <div class="page-container">
 
-                  <div class="header-container"></div>
+                <div class="header-container"></div>
 
-                  <div class="post-header" data-user-id="${id}">
-                  <img src="${post.user.imageUrl}" class="post-header__user-image">
-                  <p class="post-header__user-name">${post.user.login}</p>
-              </div>
+                <div class="post-header" data-user-id="${id}">
+                    <img src="${post.user.imageUrl}" class="post-header__user-image">
+                    <p class="post-header__user-name">${post.user.login}</p>
+                </div>
 
-                  <ul class="posts">
-                    ${postsHtml}
-                  </ul>
+                <ul class="posts">
+                    ${userPostsHtml}
+                </ul>
 
-                </div>`
+            </div>`
 
-    appEl.innerHTML = appHtml
+    appEl.innerHTML = appHtml //pageUserPostsHtml
 
     renderHeaderComponent({
         element: document.querySelector('.header-container'),
