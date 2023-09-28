@@ -78,7 +78,7 @@ export const goToPage = (newPage, data) => {
             return getUserPost(data.userId)
                 .then((newPosts) => {
                     console.log(newPosts)
-
+                    
                     page = USER_POSTS_PAGE
                     posts = newPosts.userId
                     renderApp()

@@ -17,9 +17,7 @@ export function renderUserPageComponent({ appEl }) {
 
     console.log(posts);
 
-    const userPostsHtml = 
-    posts
-        .map((post) => {
+    const userPostsHtml = posts.map((post) => {
             return `<li class="post">
 
                     <div class="post-image-container">
@@ -62,7 +60,7 @@ export function renderUserPageComponent({ appEl }) {
 
 
 
-    const appHtml = `
+    const userPostsPageHtml = `
              <div class="page-container">
 
                 <div class="header-container"></div>
@@ -78,7 +76,7 @@ export function renderUserPageComponent({ appEl }) {
 
             </div>`
 
-    appEl.innerHTML = appHtml //pageUserPostsHtml
+    appEl.innerHTML = userPostsPageHtml
 
     renderHeaderComponent({
         element: document.querySelector('.header-container'),

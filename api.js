@@ -125,15 +125,22 @@ export function dislikePost({ id, token, name }) {
     })
 }
 
-export function getUserPost(id) {
-    return fetch(
-        baseHost + `/api/v1/${personalKey}/instapro/user-posts/${id}`,
-        {
-            method: 'GET',
+export function getUserPost(userId) {
+    return fetch(postsHost + `/user-posts/${userId}`, {
+		method: "GET",
+	})
+    .then((response) => {
+        if (response.status === 401) {
+            throw new Error("Нет авторизации");
         }
-    )
-        .then((response) => response.json())
-        .then((data) => {
-            return data.posts
-        })
+
+        return response.json();
+    })
+    .then((data) => {
+        return data.posts;
+    });
+        // .then((response) => response.json())
+        // .then((data) => {
+        //     return data.posts
+        // })
 }
