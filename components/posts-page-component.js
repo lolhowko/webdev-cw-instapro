@@ -9,7 +9,6 @@ export function renderPostsPageComponent({ appEl }) {
 
     const appElement = document.getElementById('app')
 
-
     /**
      * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
      * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
@@ -17,7 +16,7 @@ export function renderPostsPageComponent({ appEl }) {
 
     // получение разметки в html из api
 
-    const render = () => {  
+    const render = () => {
         const postsHtml = posts
             .map((post) => {
                 return `<li class="post">
@@ -44,10 +43,14 @@ export function renderPostsPageComponent({ appEl }) {
 
                       </button>
                       <p class="post-likes-text">
-                        Нравится: <strong> ${post.likes[0]?.name}</strong>
                          <strong>${
-                             post.likes.length
-                                 ? `и еще ${post.likes.length}`
+                             post.likes.length >= 1
+                                 ? `Нравится: ${post.likes[0]?.name}`
+                                 : ' '
+                         }
+                         <strong>${
+                             post.likes.length - 1 === 1
+                                 ? `и еще ${post.likes.length - 1}`
                                  : ' '
                          }</strong>
                       </p>
@@ -93,9 +96,8 @@ export function renderPostsPageComponent({ appEl }) {
 
         for (let likeButton of document.querySelectorAll('.like-button')) {
             likeButton.addEventListener('click', () => {
-                console.log(likeButton.dataset.postId)
-                console.log(likeButton.dataset.dislike)
-                
+                // console.log(likeButton.dataset.postId)
+                // console.log(likeButton.dataset.dislike)
 
                 if (likeButton.dataset.dislike) {
                     dislikePost({

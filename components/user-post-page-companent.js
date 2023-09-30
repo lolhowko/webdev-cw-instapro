@@ -1,11 +1,11 @@
-import { posts, getToken } from '../index.js'
+import { posts, getToken, userId } from '../index.js'
 import { dislikePost, getUserPost, likePost } from '../api.js'
 import { renderHeaderComponent } from './header-component.js'
 
 export function renderUserPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
 
-    const appElement = document.getElementById('app')
+    // const appElement = document.getElementById('app')
 
     /**
      * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
@@ -38,10 +38,14 @@ export function renderUserPageComponent({ appEl }) {
 
                       </button>
                       <p class="post-likes-text">
-                        Нравится: <strong>${post.likes[0]?.name}}</strong>
                          <strong>${
-                             post.likes.length
-                                 ? `и еще ${post.likes.length}`
+                            post.likes.length >= 1
+                                ? `Нравится: ${post.likes[0]?.name}`
+                                : ' '
+                        }
+                         <strong>${
+                             post.likes.length-1 === 1
+                                 ? `и еще ${post.likes.length -1}`
                                  : ' '
                          }</strong>
                       </p>
@@ -84,8 +88,7 @@ export function renderUserPageComponent({ appEl }) {
 
     for (let likeButton of document.querySelectorAll('.like-button')) {
         likeButton.addEventListener('click', () => {
-
-            if (likeButton.dataset.dislike) {
+            if (likeButton.dataset.dislike === 'true') {
                 dislikePost({
                     id: likeButton.dataset.postId,
                     token: getToken(),

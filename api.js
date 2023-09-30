@@ -1,6 +1,6 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
 // "боевая" версия инстапро лежит в ключе prod
-const personalKey = 'prod'
+const personalKey = 'lolhowko'
 // const baseHost = 'https://webdev-hw-api.vercel.app'
 const baseHost = 'https://wedev-api.sky.pro'
 
@@ -96,7 +96,6 @@ export function loginUser({ login, password }) {
 
 // Загружает картинку в облако, возвращает url загруженной картинки
 export function uploadImage({ file }) {
-    console.log(file)
     const data = new FormData()
     data.append('file', file)
 
