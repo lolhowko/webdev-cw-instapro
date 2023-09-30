@@ -1,7 +1,6 @@
 import { posts, getToken } from '../index.js'
-import { dislikePost, getPosts, likePost } from '../api.js'
+import { dislikePost, getUserPost, likePost } from '../api.js'
 import { renderHeaderComponent } from './header-component.js'
-import { renderPostsPageComponent } from './posts-page-component.js'
 
 export function renderUserPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
@@ -15,9 +14,12 @@ export function renderUserPageComponent({ appEl }) {
 
     // получение разметки в html из api
 
-    console.log(posts);
+    console.log(posts)
 
-    const userPostsHtml = posts.map((post) => {
+    const userPostsHtml = posts
+        .map((post) => {
+            const isLike = Boolean(post.likes.find((el) => el._id === userId))
+
             return `<li class="post">
 
                     <div class="post-image-container">
@@ -25,18 +27,18 @@ export function renderUserPageComponent({ appEl }) {
                     </div>
 
                     <div class="post-likes">
-                      <button data-post-id="${post.id}" data-dislike="${
-                          post.isLiked ? 'true' : ''
-                      }" class="like-button">
+                      <button data-post-id="${
+                          post.id
+                      }" data-dislike="${isLike}" class="like-button">
                         <img src="${
-                            post.isLiked
+                            isLike
                                 ? `./assets/images/like-active.svg`
                                 : `./assets/images/like-not-active.svg`
                         }">
 
                       </button>
                       <p class="post-likes-text">
-                        Нравится: <strong>${post.likes}</strong>
+                        Нравится: <strong>${post.likes[0]?.name}}</strong>
                          <strong>${
                              post.likes.length
                                  ? `и еще ${post.likes.length}`
@@ -58,16 +60,14 @@ export function renderUserPageComponent({ appEl }) {
         })
         .join(' ')
 
-
-
     const userPostsPageHtml = `
              <div class="page-container">
 
                 <div class="header-container"></div>
 
-                <div class="post-header" data-user-id="${id}">
-                    <img src="${post.user.imageUrl}" class="post-header__user-image">
-                    <p class="post-header__user-name">${post.user.login}</p>
+                <div class="post-header">
+                    <img src="${posts[0].user.imageUrl}" class="post-header__user-image">
+                    <p class="post-header__user-name">${posts[0].user.name}</p>
                 </div>
 
                 <ul class="posts">
@@ -84,16 +84,14 @@ export function renderUserPageComponent({ appEl }) {
 
     for (let likeButton of document.querySelectorAll('.like-button')) {
         likeButton.addEventListener('click', () => {
-            console.log(likeButton.dataset.postId)
-            console.log(likeButton.dataset.dislike)
 
             if (likeButton.dataset.dislike) {
                 dislikePost({
                     id: likeButton.dataset.postId,
                     token: getToken(),
                 }).then(() => {
-                    getPosts({ token: getToken() }).then((newPosts) => {
-                        renderPostsPageComponent({ appEl, posts: newPosts })
+                    getUserPost({ userId }).then((newPosts) => {
+                        renderUserPageComponent({ appEl, posts: newPosts })
                     })
                 })
             } else {
@@ -101,8 +99,8 @@ export function renderUserPageComponent({ appEl }) {
                     id: likeButton.dataset.postId,
                     token: getToken(),
                 }).then(() => {
-                    getPosts({ token: getToken() }).then((newPosts) => {
-                        renderPostsPageComponent({ appEl, posts: newPosts })
+                    getUserPost({ userId }).then((newPosts) => {
+                        renderUserPageComponent({ appEl, posts: newPosts })
                     })
                 })
             }

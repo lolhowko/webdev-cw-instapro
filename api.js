@@ -40,6 +40,23 @@ export function postPosts({ token, description, imageUrl }) {
                 .replaceAll('"', '&quot;'),
         }),
     })
+        .then((response) => {
+            if (response.status === 201) {
+                return response.json()
+            } else if (response.status === 400) {
+                throw new Error(
+                    'Something wrong. Проверьте данные и попробуйте снова.'
+                )
+            } else {
+                throw new Error(
+                    'Произошла ошибка при загрузке поста. Пожалуйста, попробуйте позже.'
+                )
+            }
+        })
+        .catch((error) => {
+            alert('Произошла ошибка:', error)
+            throw error
+        })
 
     //ДОБАВИТЬ ПРОВЕРКУ CATCH ERROR THEN + если файл больше 5 мб
 }
@@ -110,37 +127,23 @@ export function likePost({ id, token, name }) {
 
 // Function to not active Like!
 
-export function dislikePost({ id, token, name }) {
+export function dislikePost({ id, token }) {
     return fetch(postsHost + `/${id}/dislike`, {
         method: 'POST',
         headers: {
             Authorization: token,
         },
-        body: JSON.stringify({
-            id,
-            name,
-        }),
     }).then((response) => {
         return response.json
     })
 }
 
-export function getUserPost(userId) {
+export function getUserPost({ userId }) {
     return fetch(postsHost + `/user-posts/${userId}`, {
-		method: "GET",
-	})
-    .then((response) => {
-        if (response.status === 401) {
-            throw new Error("Нет авторизации");
-        }
-
-        return response.json();
+        method: 'GET',
     })
-    .then((data) => {
-        return data.posts;
-    });
-        // .then((response) => response.json())
-        // .then((data) => {
-        //     return data.posts
-        // })
+        .then((response) => response.json())
+        .then((data) => {
+            return data.posts
+        })
 }

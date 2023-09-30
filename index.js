@@ -20,6 +20,11 @@ import { renderUserPageComponent } from './components/user-post-page-companent.j
 export let user = getUserFromLocalStorage()
 export let page = null
 export let posts = []
+export let userId = ''
+
+export const setUserId = (newUserId) => {
+    userId = newUserId
+}
 
 export const getToken = () => {
     const token = user ? `Bearer ${user.token}` : undefined
@@ -75,12 +80,14 @@ export const goToPage = (newPage, data) => {
             // console.log('Открываю страницу пользователя: ', data.userId)
             // console.log(data.userId)
 
-            return getUserPost(data.userId)
+            setUserId(data.userId)
+
+            return getUserPost({ userId })
                 .then((newPosts) => {
                     console.log(newPosts)
-                    
+
                     page = USER_POSTS_PAGE
-                    posts = newPosts.userId
+                    posts = newPosts
                     renderApp()
                 })
                 .catch((error) => {
