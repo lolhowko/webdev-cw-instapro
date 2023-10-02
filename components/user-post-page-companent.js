@@ -94,7 +94,8 @@ export function renderUserPageComponent({ appEl }) {
                     token: getToken(),
                 }).then(() => {
                     getUserPost({ userId }).then((newPosts) => {
-                        renderUserPageComponent({ appEl, posts: newPosts })
+                        setPosts(newPosts)
+                        renderUserPageComponent({ appEl })
                     })
                 })
             } else {
@@ -103,7 +104,8 @@ export function renderUserPageComponent({ appEl }) {
                     token: getToken(),
                 }).then(() => {
                     getUserPost({ userId }).then((newPosts) => {
-                        renderUserPageComponent({ appEl, posts: newPosts })
+                        setPosts(newPosts)
+                        renderUserPageComponent({ appEl })
                     })
                 })
             }
