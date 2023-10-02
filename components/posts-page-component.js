@@ -1,6 +1,6 @@
 import { USER_POSTS_PAGE } from '../routes.js'
 import { renderHeaderComponent } from './header-component.js'
-import { posts, goToPage, getToken } from '../index.js'
+import { posts, goToPage, getToken, setPosts } from '../index.js'
 import { dislikePost, getPosts, likePost } from '../api.js'
 // import { likeInitButton } from './like-post-page-component.js'
 
@@ -106,7 +106,8 @@ export function renderPostsPageComponent({ appEl }) {
                     }).then(() => {
                         getPosts({ token: getToken() }).then((newPosts) => {
                             console.log(newPosts)
-                            renderPostsPageComponent({ appEl, posts: newPosts })
+                            setPosts(newPosts)
+                            renderPostsPageComponent({ appEl })
                         })
                     })
                 } else {
@@ -116,7 +117,8 @@ export function renderPostsPageComponent({ appEl }) {
                     }).then(() => {
                         getPosts({ token: getToken() }).then((newPosts) => {
                             console.log(newPosts)
-                            renderPostsPageComponent({ appEl, posts: newPosts })
+                            setPosts(newPosts)
+                            renderPostsPageComponent({ appEl })
                         })
                     })
                 }

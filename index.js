@@ -31,6 +31,10 @@ export const getToken = () => {
     return token
 }
 
+export const setPosts = (newPosts) => {
+    posts = newPosts
+}
+
 export const logout = () => {
     user = null
     removeUserFromLocalStorage()
