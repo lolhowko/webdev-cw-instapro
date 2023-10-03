@@ -138,6 +138,7 @@ export function dislikePost({ id, token }) {
 }
 
 export function getUserPost({ userId }) {
+    console.log(userId)
     return fetch(postsHost + `/user-posts/${userId}`, {
         method: 'GET',
     })

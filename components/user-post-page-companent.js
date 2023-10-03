@@ -2,28 +2,21 @@ import { posts, getToken, userId } from '../index.js'
 import { dislikePost, getUserPost, likePost } from '../api.js'
 import { renderHeaderComponent } from './header-component.js'
 
+import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
+
 export function renderUserPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
 
-    // const appElement = document.getElementById('app')
+    const userPostsHtml = posts.map((post) => {
 
-    /**
-     * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-     * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-     */
-
-    // получение разметки в html из api
-
-    console.log(posts)
-
-    const userPostsHtml = posts
-        .map((post) => {
             const isLike = Boolean(post.likes.find((el) => el._id === userId))
+            const createDate = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true, locale: ru })
 
             return `<li class="post">
 
                     <div class="post-image-container">
-                      <img class="post-image" src="${post.imageUrl}">
+                      <img class="post-image" src="${post.imageUrl}">7
                     </div>
 
                     <div class="post-likes">
@@ -57,8 +50,7 @@ export function renderUserPageComponent({ appEl }) {
                     </p>
                     
                     <p class="post-date">
-                      СДЕЛАТЬ ДАТУ через библиотеку
-                      ${post.createdAt}
+                      ${createDate}
                     </p>
                   </li>`
         })

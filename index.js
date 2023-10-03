@@ -86,7 +86,8 @@ export const goToPage = (newPage, data) => {
 
             setUserId(data.userId)
 
-            return getUserPost({ userId })
+            console.log(data.userId)
+            return getUserPost({ userId : data.userId })
                 .then((newPosts) => {
                     console.log(newPosts)
 

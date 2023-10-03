@@ -2,25 +2,25 @@ import { USER_POSTS_PAGE } from '../routes.js'
 import { renderHeaderComponent } from './header-component.js'
 import { posts, goToPage, getToken, setPosts } from '../index.js'
 import { dislikePost, getPosts, likePost } from '../api.js'
-// import { likeInitButton } from './like-post-page-component.js'
+
+import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export function renderPostsPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
 
     const appElement = document.getElementById('app')
 
-    /**
-     * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-     * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-     */
-
     // получение разметки в html из api
 
     const render = () => {
         const postsHtml = posts
             .map((post) => {
+
+                const createDate = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true, locale: ru })
+
                 return `<li class="post">
-                    <div class="post-header" data-user-id="${post.id}">
+                    <div class="post-header" data-user-id="${post.user.id}">
                         <img src="${
                             post.user.imageUrl
                         }" class="post-header__user-image">
@@ -49,7 +49,7 @@ export function renderPostsPageComponent({ appEl }) {
                                  : ' '
                          }
                          <strong>${
-                             post.likes.length - 1 === 1
+                             post.likes.length > 1
                                  ? `и еще ${post.likes.length - 1}`
                                  : ' '
                          }</strong>
@@ -62,8 +62,7 @@ export function renderPostsPageComponent({ appEl }) {
                     </p>
                     
                     <p class="post-date">
-                      СДЕЛАТЬ ДАТУ через библиотеку
-                      ${post.createdAt}
+                      ${createDate}
                     </p>
                   </li>`
             })
