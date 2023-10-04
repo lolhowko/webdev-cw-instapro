@@ -1,4 +1,4 @@
-import { posts, getToken, userId } from '../index.js'
+import { posts, getToken, userId, setPosts } from '../index.js'
 import { dislikePost, getUserPost, likePost } from '../api.js'
 import { renderHeaderComponent } from './header-component.js'
 
