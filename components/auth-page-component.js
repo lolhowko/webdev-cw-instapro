@@ -81,7 +81,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
       if (isLoginMode) {
         const login = document.getElementById("login-input").value;
         const password = document.getElementById("password-input").value;
-
+        
         if (!login) {
           alert("Введите логин");
           return;
@@ -107,6 +107,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         const login = document.getElementById("login-input").value;
         const name = document.getElementById("name-input").value;
         const password = document.getElementById("password-input").value;
+
+        const regex = /^[a-zA-Z]+$/
+
         if (!name) {
           alert("Введите имя");
           return;
@@ -125,6 +128,13 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           alert("Не выбрана фотография");
           return;
         }
+
+
+        if(!regex.test(password)) {
+          alert("Пароль должен состоять только из латинских символов")
+          return
+        }
+
 
         registerUser({
           login: login,
